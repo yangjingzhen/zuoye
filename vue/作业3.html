@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .active{background:red;width:200px;height:200px;}
+        .actives{background:green;width:200px;height:200px;}
+    </style>
+</head>
+<body>
+    <div id = "app">
+        <div :class="activeClass"></div>
+        <button @click="cestFun">点击</button>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                activeClass:"active"
+            },
+            methods:{
+                cestFun:function(){
+                    this.activeClass=this.activeClss="actives";
+                }
+            }
+        })
+    </script>
+</body>
+</html>

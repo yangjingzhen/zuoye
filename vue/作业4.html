@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        总和：{{num}}<br>
+        平均：{{qies}}
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                num1:10,
+                num2:20
+            },
+            computed:{
+                num:function(){
+                    return this.num1+this.num2;
+                },
+                qies:function(){
+                    return this.num/2;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
