@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table border="1">
+            <tr>
+                <th v-for="itme in test">{{itme}}</th>
+            </tr>
+            <tr v-for="itme in student">
+                <td>{{itme.xuehao}}</td>
+                <td>{{itme.xingming}}</td>
+                <td>{{itme.xingbie}}</td>
+                <td>{{itme.jiguang}}</td>
+                <td>{{itme.lixi}}</td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                test:["学号","姓名","性别","籍贯","联系方式"],
+                student:[{xuehao:1,xingming:"丽丽",xingbie:"女",jiguang:"湖南",lixi:"13456765452"},
+                {xuehao:2,xingming:"小华",xingbie:"男",jiguang:"广东",lixi:"13455667452"},
+                {xuehao:3,xingming:"小明",xingbie:"男",jiguang:"广西",lixi:"13451365452"},
+                {xuehao:4,xingming:"花花",xingbie:"女",jiguang:"江西",lixi:"13455647452"},
+                {xuehao:5,xingming:"小强",xingbie:"男",jiguang:"北京",lixi:"13455664552"}]
+                
+            },
+        })
+    </script>
+</body>
+</html>
