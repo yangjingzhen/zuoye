@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>商品架</h3>
+        <table border="1">
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="(itme,index) in shangpin">
+                <td>{{itme.name}}</td>
+                <td>{{itme.jiage}}</td>
+                <td><button @click="jianFun(itme)">－</button>{{itme.num}}<button @click="jiaFun(itme)">＋</button></td>
+                <td><button @click="jiaruFun(itme)">加入购物车</button></td>
+            </tr>
+        </table>
+        <h3>购物车</h3>
+        <table border="1">
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+                <th>操作</th>
+            </tr>
+            <tr v-if="gouwuche.length==0"><td>购物车内没有商品</td></tr>
+            <tr v-for="(itme,index) in gouwuche" v-else>
+                <td>{{itme.name}}</td>
+                <td>{{itme.jiage}}</td>
+                <td><button @click="jianFun(itme)">－</button>{{itme.num}}<button @click="jiaFun(itme)">＋</button></td>
+                <td><button @click="yichuFun(itme)">移除购物车</button></td>
+            </tr>
+            <tr><td>总计：{{zongji}}</td></tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                shangpin:[
+                        {"name":"iphone","jiage":5000,"num":0},
+                        {"name":"sanxin","jiage":3000,"num":0},
+                        {"name":"xiaomi","jiage":2000,"num":0}
+                    ],
+                gouwuche:[],
+                zongji:0
+            },
+            methods:{
+                jianFun:function(itme){
+                    if(itme.num>=1){
+                        itme.num--;
+                    }
+                    this.zongji=this.zongji-itme.jiage;
+                },
+                jiaFun:function(itme){
+                    itme.num++;
+                    this.zongji=this.zongji+itme.jiage;
+                },
+                jiaruFun:function(itme){
+                    var numb=0;
+                    for(var i=0;i<this.gouwuche.length;i++){
+                        if(this.gouwuche[i].name == itme.name){
+                            numb++;
+                        }
+                    }
+                    if(numb==0){
+                        this.gouwuche.push(itme);
+                    }else{
+                        numb=0;    
+                    }
+                    if(this.gouwuche.length==0){
+                        this.gouwuche.push(itme);
+                    }
+                },
+                yichuFun:function(itme){
+                    for(var i=0;i<this.gouwuche.length;i++){
+                        if(this.gouwuche[i].name == itme.name){
+                            this.gouwuche.splice(i,1);
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
