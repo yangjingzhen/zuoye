@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		ul,
+		li {
+			list-style: none;
+		}
+
+		.list {
+			display: flex;
+			flex-wrap: nowrap;
+			flex-direction: row;
+		}
+
+		.list li div {
+			width: 80px;
+			height: 110px;
+			margin: 5px;
+			background: lightblue;
+		}
+
+		.list li div img {
+			width: 80px;
+			height: 100px;
+		}
+	</style>
+	<meta name="viewport" content="width=device-width" />
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script src="axios.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<div id="app">
+		<guochangju  test="近期值得看的国产剧" :guochanju="guochanlist"></guochangju>
+		<guochangju  test="近期值得看的综艺节目" :guochanju="zongyilist"></guochangju>
+		<guochangju  test="近期值得看的英美剧" :guochanju="yingmeilist"></guochangju>
+	</div>
+	<script type="text/javascript">
+		var zujian = {
+			props:["i"],
+			template:`
+					<li>
+						<div>
+							<img :src="i.cover.url" title="i.title" />
+							{{i.title}}
+						</div>
+					</li>
+					`
+		};
+		var guochangju={
+			props:["test","guochanju"],
+			template:
+				`
+				<div>
+					<h2>{{test}}</h2>
+					<ul class="list">
+						<zujian v-for="(item,index) in guochanju" :i="item"> </zujian>
+					</ul>
+				</div>
+				`,
+			components:{
+				zujian
+			}
+		};
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				guochanlist: [],
+				zongyilist: [],
+				yingmeilist: []
+			},
+			//axios文档  https://www.kancloud.cn/yunye/axios/234845  
+			mounted: function () {
+				//国产
+				axios.get('dianshiju.json').then((data) => {
+					console.log(data);
+					this.guochanlist = data.data.subject_collection_items;
+				}).catch((error) => {
+					console.log(error);
+				})
+				axios.get('zongyi.json').then((data) => {
+					console.log(data);
+					this.zongyilist = data.data.subject_collection_items;
+				}).catch((error) => {
+					console.log(error);
+				})
+				axios.get('yingmei.json').then((data) => {
+					this.yingmeilist = data.data.subject_collection_items;
+					console.log(this.yingmeilist);
+				}).catch((error) => {
+					console.log(error);
+				})
+			},
+			components:{
+				guochangju
+			}
+		})
+	</script>
+</body>
+
+</html>
